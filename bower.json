@@ -1,0 +1,21 @@
+{
+  "name": "ng-xhr-promisify",
+  "description": "Wrap XMLHttpRequest in an $http-like promise",
+  "main": [
+    "dist/ng-xhr-promisify.js"
+  ],
+  "dependencies": {
+    "angular": "^1.2.0"
+  },
+  "authors": [
+    "Tiago Oliveira <tiago.co@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "src",
+    "package.json",
+    "node_modules",
+    "rollup.config.js"
+  ]
+}
