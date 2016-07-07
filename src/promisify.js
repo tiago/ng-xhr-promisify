@@ -57,9 +57,9 @@ export default function xhrPromisifyFactory($q) {
     }
     // handle 0 status on file protocol
     if (statusCode === 0) {
-      const protocolRegExp = /^(?:([^:\/]+):)/;
+      const protocolRegExp = /^[^:]+(?=:\/\/)/;
       const match = xhr.responseURL.match(protocolRegExp);
-      const protocol = match && match[1];
+      const protocol = match && match[0];
       statusCode = response ? 200 : protocol === 'file' ? 404 : 0;
     }
     return statusCode;
