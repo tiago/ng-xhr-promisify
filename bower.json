@@ -1,6 +1,6 @@
 {
   "name": "ng-xhr-promisify",
-  "description": "Wrap XMLHttpRequest in an $http-like promise",
+  "description": "Wrap XMLHttpRequest in an angular $http-like promise",
   "main": [
     "dist/ng-xhr-promisify.js"
   ],
