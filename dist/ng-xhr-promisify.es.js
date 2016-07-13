@@ -1,4 +1,4 @@
-/*! ng-xhr-promisify v1.0.0 | MIT License | https://github.com/tiago/ng-xhr-promisify */
+/*! ng-xhr-promisify v1.0.1 | MIT License | https://github.com/tiago/ng-xhr-promisify */
 
 import angular from 'angular';
 
@@ -61,9 +61,9 @@ function xhrPromisifyFactory($q) {
     }
     // handle 0 status on file protocol
     if (statusCode === 0) {
-      var protocolRegExp = /^(?:([^:\/]+):)/;
+      var protocolRegExp = /^[^:]+(?=:\/\/)/;
       var match = xhr.responseURL.match(protocolRegExp);
-      var protocol = match && match[1];
+      var protocol = match && match[0];
       statusCode = response ? 200 : protocol === 'file' ? 404 : 0;
     }
     return statusCode;

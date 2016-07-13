@@ -1,6 +1,6 @@
 {
   "name": "ng-xhr-promisify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Wrap XMLHttpRequest in an angular $http-like promise",
   "main": "dist/ng-xhr-promisify.js",
   "jsnext:main": "dist/ng-xhr-promisify.es.js",
