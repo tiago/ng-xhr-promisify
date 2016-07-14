@@ -13,7 +13,9 @@
     "url": "https://github.com/tiago/ng-xhr-promisify/issues"
   },
   "scripts": {
-    "build": "rimraf dist && rollup -c"
+    "lint": "eslint src/**/*.js",
+    "build": "rimraf dist && rollup -c",
+    "prebuild": "npm run lint"
   },
   "author": "Tiago Oliveira",
   "license": "MIT",
@@ -21,6 +23,7 @@
     "angular": "^1.2.0"
   },
   "devDependencies": {
+    "eslint": "^3.0.1",
     "rimraf": "^2.5.3",
     "rollup": "^0.33.0",
     "rollup-plugin-buble": "^0.12.1"

@@ -21,7 +21,7 @@ export default function xhrPromisifyFactory($q) {
       }
       name = name.toLowerCase();
       return name in headers ? headers[name] : null;
-    }
+    };
   }
 
   function getResponse(xhr) {
