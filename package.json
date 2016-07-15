@@ -19,6 +19,13 @@
   },
   "author": "Tiago Oliveira",
   "license": "MIT",
+  "keywords": [
+    "angular",
+    "xhr",
+    "xmlhttprequest",
+    "promise",
+    "$http"
+  ],
   "dependencies": {
     "angular": "^1.2.0"
   },
