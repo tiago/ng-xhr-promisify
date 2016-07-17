@@ -16,6 +16,6 @@
     "src",
     "package.json",
     "node_modules",
-    "rollup.config.js"
+    "gulpfile.js"
   ]
 }
