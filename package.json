@@ -32,10 +32,14 @@
     "del": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.0.0-alpha",
+    "gulp-uglify": "^1.5.4",
     "rollup-stream": "^1.11.0",
     "rollup-plugin-buble": "^0.12.1",
     "run-sequence": "^1.2.2",
     "uglify-js": "^2.7.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "engines": {
