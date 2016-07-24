@@ -1,12 +1,10 @@
 /*eslint-env node*/
 const fs = require('fs');
-const path = require('path');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
-const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
 const rollup = require('rollup-stream');
 const buble = require('rollup-plugin-buble');
@@ -14,13 +12,23 @@ const del = require('del');
 const sequence = require('run-sequence');
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'));
-const dependencies = Object.keys(pkg.dependencies);
-const banner = `/*! ${pkg.name} v${pkg.version} | ${pkg.license} License | ${pkg.homepage} */\n`;
-const moduleName = 'ngXhrPromisify';
+const config = {
+  path: {
+    root: '.',
+    src: 'src',
+    dist: 'dist',
+    main: pkg['main'],
+    esmain: pkg['jsnext:main']
+  }
+};
 
 function bundle(format) {
+  const dependencies = Object.keys(pkg.dependencies);
+  const banner = `/*! ${pkg.name} v${pkg.version} | ${pkg.license} License | ${pkg.homepage} */\n`;
+  const moduleName = 'ngXhrPromisify';
+
   return rollup({
-    entry: 'src/index.js',
+    entry: `${config.path.src}/index.js`,
     plugins: [ buble() ],
     external: dependencies,
     moduleName: moduleName,
@@ -31,22 +39,19 @@ function bundle(format) {
 }
 
 gulp.task('bundle:es', () => {
-  const target = pkg['jsnext:main'];
-  const file = path.basename(target);
-  const dir = path.dirname(target);
   return bundle('es')
-    .pipe(source(file))
-    .pipe(gulp.dest(dir));
+    .pipe(source(config.path.esmain))
+    .pipe(gulp.dest(config.path.root));
 });
 
 gulp.task('bundle:umd', () => {
-  const target = pkg['main'];
-  const file = path.basename(target);
-  const dir = path.dirname(target);
   return bundle('umd')
-    .pipe(source(file))
-    .pipe(gulp.dest(dir))
-    .pipe(buffer())
+    .pipe(source(config.path.main))
+    .pipe(gulp.dest(config.path.root));
+});
+
+gulp.task('minify:umd', () => {
+  gulp.src(config.path.main)
     .pipe(sourcemaps.init())
     .pipe(uglify({ preserveComments: 'license' }))
     .pipe(rename({ suffix: '.min' }))
@@ -54,24 +59,22 @@ gulp.task('bundle:umd', () => {
       includeContent: false,
       mapFile: name => name.replace(/\.js\.map$/, '.map')
     }))
-    .pipe(gulp.dest(dir));
+    .pipe(gulp.dest(config.path.dist));
 });
 
 gulp.task('lint', () => {
-  return gulp.src('src/**/*.js')
+  return gulp.src(`${config.path.src}/**/*.js`)
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
 gulp.task('clean', () => {
-  return del('dist');
+  return del(config.path.dist);
 });
 
-gulp.task('bundle', ['bundle:es', 'bundle:umd']);
-
 gulp.task('build', (callback) => {
-  sequence('lint', 'clean', 'bundle', callback);
+  sequence('lint', 'clean', ['bundle:es', 'bundle:umd'], 'minify:umd', callback);
 });
 
 gulp.task('default', ['build']);
