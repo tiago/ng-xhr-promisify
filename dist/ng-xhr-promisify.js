@@ -1,4 +1,4 @@
-/*! ng-xhr-promisify v1.0.1 | MIT License | https://github.com/tiago/ng-xhr-promisify */
+/*! ng-xhr-promisify v1.0.2 | MIT License | https://github.com/tiago/ng-xhr-promisify */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('angular')) :
@@ -31,7 +31,7 @@
         }
         name = name.toLowerCase();
         return name in headers ? headers[name] : null;
-      }
+      };
     }
 
     function getResponse(xhr) {
@@ -67,10 +67,8 @@
       }
       // handle 0 status on file protocol
       if (statusCode === 0) {
-        var protocolRegExp = /^[^:]+(?=:\/\/)/;
-        var match = xhr.responseURL.match(protocolRegExp);
-        var protocol = match && match[0];
-        statusCode = response ? 200 : protocol === 'file' ? 404 : 0;
+        var fileProtocol = xhr.responseURL.slice(0, 7) === 'file://';
+        statusCode = response ? 200 : fileProtocol ? 404 : 0;
       }
       return statusCode;
     }
