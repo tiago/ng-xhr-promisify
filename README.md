@@ -11,11 +11,11 @@ Directly from [npmcdn](https://npmcdn.com):
 ```
 With [npm](https://www.npmjs.com/package/ng-xhr-promisify):
 ```sh
-bower install --save ng-xhr-promisify
+npm install --save ng-xhr-promisify
 ```
 With [bower](https://bower.io):
 ```sh
-npm install --save ng-xhr-promisify
+bower install --save ng-xhr-promisify
 ```
 
 ## Usage
