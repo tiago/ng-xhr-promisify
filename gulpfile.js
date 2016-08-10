@@ -11,26 +11,23 @@ const buble = require('rollup-plugin-buble');
 const del = require('del');
 const sequence = require('run-sequence');
 
-const pkg = JSON.parse(fs.readFileSync('./package.json'));
-const config = {
-  path: {
-    root: '.',
-    src: 'src',
-    dist: 'dist',
-    main: pkg['main'],
-    esmain: pkg['jsnext:main']
-  }
+const pkg = JSON.parse(fs.readFileSync('package.json'));
+const paths = {
+  src: 'src',
+  dist: 'dist',
+  main: pkg['main'],
+  esmain: pkg['jsnext:main']
 };
 
 function bundle(format) {
-  const dependencies = Object.keys(pkg.dependencies);
   const banner = `/*! ${pkg.name} v${pkg.version} | ${pkg.license} License | ${pkg.homepage} */\n`;
   const moduleName = 'ngXhrPromisify';
 
   return rollup({
-    entry: `${config.path.src}/index.js`,
+    entry: `${paths.src}/index.js`,
     plugins: [ buble() ],
-    external: dependencies,
+    external: [ 'angular' ],
+    globals: { 'angular': 'angular' },
     moduleName: moduleName,
     banner: banner,
     sourceMap: false,
@@ -40,18 +37,18 @@ function bundle(format) {
 
 gulp.task('bundle:es', () => {
   return bundle('es')
-    .pipe(source(config.path.esmain))
-    .pipe(gulp.dest(config.path.root));
+    .pipe(source(paths.esmain))
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('bundle:umd', () => {
   return bundle('umd')
-    .pipe(source(config.path.main))
-    .pipe(gulp.dest(config.path.root));
+    .pipe(source(paths.main))
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('minify:umd', () => {
-  gulp.src(config.path.main)
+  gulp.src(paths.main)
     .pipe(sourcemaps.init())
     .pipe(uglify({ preserveComments: 'license' }))
     .pipe(rename({ suffix: '.min' }))
@@ -59,18 +56,18 @@ gulp.task('minify:umd', () => {
       includeContent: false,
       mapFile: name => name.replace(/\.js\.map$/, '.map')
     }))
-    .pipe(gulp.dest(config.path.dist));
+    .pipe(gulp.dest(paths.dist));
 });
 
 gulp.task('lint', () => {
-  return gulp.src(`${config.path.src}/**/*.js`)
+  return gulp.src(`${paths.src}/**/*.js`)
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
 gulp.task('clean', () => {
-  return del(config.path.dist);
+  return del(paths.dist);
 });
 
 gulp.task('build', (callback) => {
