@@ -73,8 +73,11 @@ export default function xhrPromisifyFactory($q) {
 
   function promisify(xhr) {
     if (!(xhr instanceof XMLHttpRequest)) {
-      throw new Error('Invalid XMLHttpRequest object');
+      return $q.reject('Invalid XMLHttpRequest object').catch(err => {
+        throw new TypeError(err);
+      });
     }
+
     const deferred = $q.defer();
     function onXhrDone() {
       const response = createResponse(xhr);
