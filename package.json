@@ -14,7 +14,8 @@
   },
   "scripts": {
     "lint": "gulp lint",
-    "build": "gulp build"
+    "build": "gulp build",
+    "release": "gulp release"
   },
   "author": "Tiago Oliveira",
   "license": "MIT",
