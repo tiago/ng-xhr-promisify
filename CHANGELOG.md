@@ -10,5 +10,5 @@
 
 [#3]: https://github.com/tiago/ng-xhr-promisify/issues/3
 
-[1.0.2]: https://github.com/tiago/ng-xhr-promisify/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/tiago/ng-xhr-promisify/compare/v1.0.0...v1.0.1
+[1.0.2]: https://github.com/tiago/ng-xhr-promisify/compare/v1.0.1...v1.0.2
