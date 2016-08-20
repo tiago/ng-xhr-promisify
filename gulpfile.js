@@ -84,13 +84,13 @@ gulp.task('release:check', (callback) => {
   const branch = shell.exec('git rev-parse --abbrev-ref HEAD', { silent: true }).stdout.trim();
   if (branch !== 'master') {
     const red = util.colors.red;
-    util.log(red('Switch to'), red.bold('master'), red('branch before continuing...'));
+    console.log(red('Switch to'), red.bold('master'), red('branch before continuing.'));
     process.exit(1);
   }
 
   const changes = shell.exec('git status --untracked-files=no --porcelain', { silent: true }).stdout.trim();
   if (changes) {
-    util.log(util.colors.red('You have unstaged or uncommitted changes. Commit or stash before continuing...'));
+    console.log(util.colors.red('You have unstaged or uncommitted changes. Commit or stash before continuing.'));
     process.exit(1);
   }
 
@@ -166,7 +166,7 @@ gulp.task('release:commit', (callback) => {
   commands.forEach(cmd => {
     const result = shell.exec(cmd, { silent: true });
     if (result.code !== 0) {
-      util.log(util.colors.red(result.stderr.trim()));
+      console.log(util.colors.red(result.stderr.trim()));
       process.exit(1);
     }
   });
@@ -176,8 +176,10 @@ gulp.task('release:commit', (callback) => {
 
 gulp.task('release:publish', (callback) => {
   const commands = [
+    `git checkout v${pkg.version}`,
+    'npm publish',
     `git push origin master v${pkg.version}`,
-    'npm publish'
+    `git checkout master`
   ];
 
   inquirer.prompt({
@@ -188,9 +190,9 @@ gulp.task('release:publish', (callback) => {
   }).then(choice => {
     if(choice.publish) {
       commands.forEach(cmd => {
-        const result = shell.exec(cmd);
+        const result = shell.exec(cmd, { silent: true });
         if (result.code !== 0) {
-          util.log(util.colors.red(result.stderr.trim()));
+          console.log(util.colors.red(result.stderr.trim()));
           process.exit(1);
         }
       });
