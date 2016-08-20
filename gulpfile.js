@@ -176,9 +176,9 @@ gulp.task('release:commit', (callback) => {
 
 gulp.task('release:publish', (callback) => {
   const commands = [
+    `git push origin master v${pkg.version}`,
     `git checkout v${pkg.version}`,
     'npm publish',
-    `git push origin master v${pkg.version}`,
     `git checkout master`
   ];
 
