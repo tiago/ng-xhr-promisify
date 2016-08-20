@@ -86,6 +86,7 @@ export default function xhrPromisifyFactory($q) {
       } else {
         deferred.reject(response);
       }
+      xhr.removeEventListener('loadend', onXhrDone);
     }
     if (xhr.readyState === 4 || xhr.readyState === 0) {
       onXhrDone();
