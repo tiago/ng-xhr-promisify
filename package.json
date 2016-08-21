@@ -42,6 +42,12 @@
     "uglify-js": "^2.7.0",
     "vinyl-source-stream": "^1.1.0"
   },
+  "files": [
+    "dist/*",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE.md"
+  ],
   "engines": {
     "node": ">=4.0.0"
   }
