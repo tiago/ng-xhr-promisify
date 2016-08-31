@@ -79,20 +79,25 @@ export default function xhrPromisifyFactory($q) {
     }
 
     const deferred = $q.defer();
-    function onXhrDone() {
+
+    function onChange() {
+      if (xhr.readyState !== 4) return;
+
       const response = createResponse(xhr);
       if (response.status >= 200 && response.status < 300) {
         deferred.resolve(response);
       } else {
         deferred.reject(response);
       }
-      xhr.removeEventListener('loadend', onXhrDone);
+      xhr.removeEventListener('readystatechange', onChange);
     }
+
     if (xhr.readyState === 4 || xhr.readyState === 0) {
-      onXhrDone();
+      onChange();
     } else {
-      xhr.addEventListener('loadend', onXhrDone);
+      xhr.addEventListener('readystatechange', onChange);
     }
+
     return deferred.promise;
   }
 
