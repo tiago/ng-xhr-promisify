@@ -78,10 +78,11 @@ export default function xhrPromisifyFactory($q) {
       });
     }
 
+    const state = { UNSENT: 0, DONE: 4 };
     const deferred = $q.defer();
 
     function onChange() {
-      if (xhr.readyState !== 4) return;
+      if (xhr.readyState !== state.DONE) return;
 
       const response = createResponse(xhr);
       if (response.status >= 200 && response.status < 300) {
@@ -92,7 +93,7 @@ export default function xhrPromisifyFactory($q) {
       xhr.removeEventListener('readystatechange', onChange);
     }
 
-    if (xhr.readyState === 4 || xhr.readyState === 0) {
+    if (xhr.readyState === state.DONE || xhr.readyState === state.UNSENT) {
       onChange();
     } else {
       xhr.addEventListener('readystatechange', onChange);
