@@ -5,9 +5,9 @@
 Wrap XMLHttpRequest in an angular $http-like promise.
 
 ## Installation
-Directly from [npmcdn](https://npmcdn.com):
+Directly from [unpkg](https://unpkg.com):
 ```html
-<script src="https://npmcdn.com/ng-xhr-promisify@latest/dist/ng-xhr-promisify.min.js"></script>
+<script src="https://unpkg.com/ng-xhr-promisify@latest/dist/ng-xhr-promisify.min.js"></script>
 ```
 With [npm](https://www.npmjs.com/package/ng-xhr-promisify):
 ```sh
