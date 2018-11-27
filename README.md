@@ -2,7 +2,7 @@
 [![license](https://img.shields.io/github/license/tiago/ng-xhr-promisify.svg?maxAge=86400&style=flat-square)](LICENSE.md)
 [![release](https://img.shields.io/github/release/tiago/ng-xhr-promisify.svg?maxAge=86400&style=flat-square)](https://github.com/tiago/ng-xhr-promisify/releases/latest)
 
-Wrap XMLHttpRequest in an angular $http-like promise.
+Wrap XMLHttpRequest in an AngularJS (1.x) $http-like promise.
 
 ## Installation
 Directly from [unpkg](https://unpkg.com):
