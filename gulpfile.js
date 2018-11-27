@@ -30,13 +30,13 @@ function bundle(format) {
   const moduleName = 'ngXhrPromisify';
 
   return rollup({
-    entry: `${paths.src}/index.js`,
+    input: `${paths.src}/index.js`,
     plugins: [ buble() ],
     external: [ 'angular' ],
     globals: { 'angular': 'angular' },
-    moduleName: moduleName,
+    name: moduleName,
     banner: banner,
-    sourceMap: false,
+    sourcemap: false,
     format: format || 'umd'
   });
 }
