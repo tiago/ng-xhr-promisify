@@ -4,12 +4,6 @@
 - Lock 'event-stream' version due to security vulnerability.
 - Minor doc update.
 
-## [1.1.3] \(2018-11-27\)
-- UNPUBLISHED
-
-## [1.1.2] \(2018-11-27\)
-- UNPUBLISHED
-
 ## [1.1.1] \(2016-09-01\)
 - Use 'readystatechange' event for IE9 compatibility ([#9]).
 
