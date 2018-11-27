@@ -15,6 +15,7 @@
   "scripts": {
     "lint": "gulp lint",
     "build": "gulp build",
+    "prerelease": "npm run build",
     "release": "gulp release"
   },
   "author": "Tiago Oliveira",
